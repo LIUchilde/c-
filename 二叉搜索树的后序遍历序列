@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool verifyPostorder(vector<int>& postorder) {
+        if(postorder.size()<=1){
+            return true;
+        }
+        return verifyPostorderCur(postorder,0,postorder.size()-1);
+    }
+    bool verifyPostorderCur(vector<int>& postorder,int i,int j){
+        if(i>=j){
+            return true;
+        }
+        int root = postorder[j];
+        int m = 0;
+        for(;m<j;++m){
+            if(postorder[m]>root){
+                break;
+            }
+        }
+        for(int k=m+1;k<j;k++){
+            if(postorder[k]<root){
+                return false;
+            }
+        }
+        return verifyPostorderCur(postorder,i,m-1)&&verifyPostorderCur(postorder,m,j-1);
+    }
+};
