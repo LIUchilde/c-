@@ -1,0 +1,20 @@
+class Solution {
+    vector<vector<int>>vec;
+    vector<int>res;
+public:
+    void combineCor(int n,int k,int start){
+        if(res.size() == k){
+            vec.push_back(res);
+            return;
+        }
+        for(int i=start;i<=n;i++){
+            res.push_back(i);
+            combineCor(n,k,i+1);
+            res.pop_back();
+        }
+    }
+    vector<vector<int>> combine(int n, int k) {
+        combineCor(n,k,1);
+        return vec;
+    }
+};
