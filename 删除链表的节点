@@ -1,0 +1,46 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+ /*
+class Solution {
+public:
+    ListNode* deleteNode(ListNode* head, int val) {
+        // 要删除链表中值为val的节点，那么递归终止条件即为head为空的时候，因为空的节点是无法删除的
+        if(!head) return head;
+        // 如果head不为空，同时head的值又等于val，返回它的下一个节点
+        if(head -> val == val) return head -> next;
+        // 如果head不为空，同时head的值也不等于val，说明head不能删除，我们递归地去判断下一个节点的情况
+        head -> next = deleteNode(head -> next, val);
+        return head;
+    }
+};
+*/
+
+class Solution {
+public:
+    ListNode* deleteNode(ListNode* head, int val) {
+        //初始化一个虚拟节点
+        ListNode* dummy = new ListNode(0);
+        //让虚拟节点指向头结点
+        dummy->next = head;
+        ListNode* cur = head;
+        ListNode* pre = dummy;
+        while (cur != NULL) {
+            if (cur->val == val) {
+                //如果找到要删除的结点，直接把他删除
+                pre->next = cur->next;
+                break;
+            }
+            //如果没找到，pre指针和cur指针都同时往后移一步
+            pre = cur;
+            cur = cur->next;
+        }
+        //最后返回虚拟节点的下一个结点即可
+        return dummy->next;
+        }
+};
