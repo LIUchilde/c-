@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void merge(vector<int>&candidates,vector<vector<int>>& vec,vector<int>&res,int target,int index){
+        if(candidates.size() == index){
+            return;
+        }
+        if(target == 0){
+            vec.push_back(res);
+            return;
+        }
+        if(target-candidates[index]>=0){
+            res.push_back(candidates[index]);
+            merge(candidates,vec,res,target-candidates[index],index);
+            res.pop_back();
+        }
+        merge(candidates,vec,res,target,index+1);
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>>vec;
+        vector<int>res;
+        merge(candidates,vec,res,target,0);
+        return vec;
+    }
+};
