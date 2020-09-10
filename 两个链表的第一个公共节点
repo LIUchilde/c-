@@ -1,0 +1,49 @@
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode* node1 = headA;
+        ListNode* node2  =headB;
+        while(node1 != node2){
+            node1 = node1 != NULL?node1->next:headB;
+            node2 = node2 != NULL?node2->next:headA;
+        }
+        return node1;
+    }
+};
+*/
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA == NULL||headB == NULL){
+            return NULL;
+        }
+        int len1 = 0;
+        int len2 = 0;
+        ListNode* pCur1 = headA;
+        ListNode* pCur2 = headB;
+        while(pCur1 != NULL){
+            len1+=1;
+            pCur1 = pCur1->next;
+        }
+        while(pCur2 != NULL){
+            len2+=1;
+            pCur2 = pCur2->next;
+        }
+        int mov = len1-len2;
+        if(mov>=0){
+            while(mov--){
+                headA = headA->next;
+            }
+        }
+        else{
+            while(mov++){
+                headB = headB->next;
+            }
+        }
+        while (headA != headB) {            
+            headA = headA->next;
+            headB = headB->next;
+        }
+        return headA;
+    }
+};
