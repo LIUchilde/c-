@@ -1,0 +1,31 @@
+class Solution {
+private:
+    vector<vector<int>> result;
+    vector<int> path;
+    void backtracking(int target, int k, int num, int sum, int startIndex) {
+        if (sum > target || num > k) { // 剪枝操作，如果sum大于target或者num大于k了没有继续搜索的必要了
+            return;
+        }
+        if (num == k && sum == target) {
+            result.push_back(path);
+            return;
+        }
+
+        for (int i = startIndex; i <= 9; i++) {
+            sum += i;
+            path.push_back(i);
+            num++;
+            backtracking(target, k, num, sum, i + 1);
+            num--;
+            sum -= i;
+            path.pop_back();
+        }
+    }
+
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        backtracking(n, k, 0, 0, 1);
+        return result;
+
+    }
+};
