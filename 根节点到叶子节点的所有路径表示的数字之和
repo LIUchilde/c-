@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int fun(TreeNode* root,int sum){
+        if(root == nullptr){
+            return 0;
+        }
+        sum = sum*10 + root->val;
+        if(root->left == nullptr&&root->right ==nullptr){
+            return sum;
+        }
+        return fun(root->left,sum)+fun(root->right,sum);
+    }
+    int sumNumbers(TreeNode* root) {
+        return fun(root,0);
+    }
+};
