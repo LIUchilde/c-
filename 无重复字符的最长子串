@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int i = 0,j = 0,maxline = 0;
+        for(;i<s.size();i++){
+            for(int k = j;k<i;k++){
+                if(s[i] == s[k]){
+                    j=k+1;
+                    break;
+                }
+            }
+            if(maxline < i-j+1){
+                maxline = i-j+1;
+            }
+        }
+        return maxline;
+    }
+};
