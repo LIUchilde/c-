@@ -1,0 +1,27 @@
+class Solution {
+public:
+    TreeLinkNode* GetNext(TreeLinkNode* pNode)
+    {
+        if(pNode == nullptr){
+            return nullptr;
+        }
+        TreeLinkNode* pNext = nullptr;
+        if(pNode->right != nullptr){
+            TreeLinkNode* pRight = pNode->right;
+            while(pRight->left != nullptr){
+                pRight = pRight->left;
+            }
+            pNext = pRight;
+        }
+        else if(pNode->next != nullptr){
+            TreeLinkNode* pParent = pNode->next;
+            TreeLinkNode* pCur = pNode;
+            while(pParent != nullptr&&pCur == pParent->right){
+                pCur = pParent;
+                pParent = pCur->next;
+            }
+            pNext = pParent;
+        }
+        return pNext;
+    }
+};
