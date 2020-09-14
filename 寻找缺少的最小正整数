@@ -1,0 +1,36 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<queue>
+void sort(int* nums, int size){
+	int i = 0;
+	for (; i<size; i++){
+		for (int j = 0; j<size -i-1; j++){
+			if (nums[j+1]<nums[j]){
+				int temp = nums[j];
+				nums[j] = nums[j+1];
+				nums[j+1] = temp;
+			}
+		}
+	}
+	return;
+}
+int fun(int* nums, int size){
+	sort(nums, size);
+	int i = 0;
+	for (; i < size; i++){
+		if (nums[i] < 0){
+			continue;
+		}
+		int j = i + 1;
+		if (nums[j] != nums[i] + 1){
+			break;
+		}
+	}
+	return nums[i] + 1;
+}
+int main(){
+	int nums[5] = { -1,3,2,0,4 };
+	cout << fun(nums, 5) << endl;
+	return 0;
+}
