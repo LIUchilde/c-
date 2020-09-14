@@ -1,0 +1,31 @@
+class Solution {
+public:
+    TreeNode* reConstructBinaryTree(vector<int> pre,vector<int> vin) {
+        int size = pre.size();
+        if(size <= 0){
+            return nullptr;
+        }
+        vector<int>pre_left,pre_right,vin_left,vin_right;
+        int p = 0;
+        int val = pre[0];
+        TreeNode* head = new TreeNode(val);
+        for(;p<size;p++){
+            if(vin[p] == val){
+                break;
+            }
+        }
+        for(int i = 0;i<size;i++){
+            if(i<p){
+                pre_left.push_back(pre[i+1]);
+                vin_left.push_back(vin[i]);
+            }
+            else if(p<i){
+                pre_right.push_back(pre[i]);
+                vin_right.push_back(vin[i]);
+            }
+        }
+        head->left = reConstructBinaryTree(pre_left,vin_left);
+        head->right = reConstructBinaryTree(pre_right,vin_right);
+        return head;
+    }
+};
