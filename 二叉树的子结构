@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool isSubStructure(TreeNode* A, TreeNode* B)
+    {
+        if(A==nullptr||B==nullptr){
+            return false;
+        }
+        if(A->val==B->val&&isSubtree(A,B)){
+            return true;
+        }
+        return isSubStructure(A->left,B)||isSubStructure(A->right,B);
+    }
+    bool isSubtree(TreeNode*p1,TreeNode*p2){
+        if(p2==nullptr){
+            return true;
+        }
+        if(p1==nullptr){
+            return false;
+        }
+        if(p1->val==p2->val){
+            return isSubtree(p1->left,p2->left)&&isSubtree(p1->right,p2->right);
+        }
+        return false;
+    }
+};
