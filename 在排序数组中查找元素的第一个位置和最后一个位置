@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int n;
+    int lower(vector<int>& nums,int e)
+    {//[l,u)前闭后开区间
+        int l=0,u=n;
+        while(l<u)
+        {
+            int mid=(l+u)>>1;
+            if(e<=nums[mid]){
+                u=mid;
+            }
+            else{
+                l=mid+1;
+            }    
+        }
+        return l;
+    }
+
+    int upper(vector<int>& nums,int e)
+    {//[l,u)前闭后开区间
+        int l=0,u=n;
+        while(l<u)
+        {
+            int mid=(l+u)>>1;
+            if(e<nums[mid]){
+                u=mid;
+            }
+            else 
+                l=mid+1;
+        }
+        return l;
+    }
+
+    vector<int> searchRange(vector<int>& nums, int target) {
+        n=nums.size();
+        int l=lower(nums,target);//找寻第一个值大于等于target的位置
+        int u=upper(nums,target);//找寻第一个值大于target的位置
+        if(l==u){
+            return vector<int>{-1,-1};
+        }
+        return vector<int>{l,u-1};
+    }
+};
