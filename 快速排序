@@ -1,0 +1,47 @@
+#include<iostream>
+using namespace std;
+void swap(int* a, int* b) {
+	int t = *a;
+	*a = *b;
+	*b = t;
+}
+void print(int* a, int size) {
+	for (int i = 0; i < size; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+}
+int partion(int* a, int left, int right) {
+	int begin = left;
+	int end = right;
+	int pivot = a[right];
+	while (begin < end) {
+		while (begin < end && a[begin] <= pivot) {
+			begin++;
+		}
+		while (begin < end && a[end] >= pivot) {
+			end--;
+		}
+		swap(a + begin, a + end);
+	}
+	swap(a + end, a + right);//交换基准值
+	return begin;
+}
+void quicksort(int* a, int left, int right) {
+	if (left >= right) {
+		return;
+	}
+	int c = partion(a, left, right);
+	quicksort(a, left, c - 1);
+	quicksort(a, c + 1, right);
+}
+void QuickSort(int* a, int size) {
+	quicksort(a, 0, size - 1);
+}
+int main() {
+	int a[] = { 3, 8, 4, 5, 7, 9, 6 };
+	int size = sizeof(a) / sizeof(int);
+	QuickSort(a, size);
+	print(a, size);
+	return 0;
+}
