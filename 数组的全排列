@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<int>> v;
+    void dfs(vector<int>& nums, int begin)
+    {
+        if(begin == nums.size() - 1)
+        {
+            v.push_back(nums);
+            return;
+        }
+        for(int i = begin; i < nums.size(); i++)
+        {
+            swap(nums[i],nums[begin]);
+            dfs(nums,begin + 1);
+            swap(nums[begin], nums[i]);
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        if(nums.size() == 0)
+        return v;
+        dfs(nums,0);
+        sort(v.begin(), v.end());
+        return v;
+    }
+};
