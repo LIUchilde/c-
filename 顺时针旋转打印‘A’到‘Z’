@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+//AC:顺时针旋转打印字符（'A'到'Z'循环打印）
+int main()
+{
+	int M, N;
+	cin >> M >> N;
+	vector<vector<char>> vc(M, vector<char>(N, 0));
+	char cur = 'A';
+	int top = 0, down = M - 1;
+	int left = 0, right = N - 1;
+	while (top <= down && left <= right) {
+		//从左往右
+		for (int i = left; i <= right; i++) {
+			vc[top][i] = cur;
+			if (cur == 'Z')
+				cur = 'A';
+			else
+				cur++;
+		}
+		top++;
+		if (top > down) break;
+		//从上往下
+		for (int i = top; i <= down; i++) {
+			vc[i][right] = cur;
+			if (cur == 'Z') cur = 'A';
+			else cur++;
+		}
+		right--;
+		if (left > right) break;
+		//从右往左
+		for (int i = right; i >= left; i--) {
+			vc[down][i] = cur;
+			if (cur == 'Z') cur = 'A';
+			else cur++;
+		}
+		//从下往上
+		down--;
+		if (top > down) break;
+		for (int i = down; i >= top; i--) {
+			vc[i][left] = cur;
+			if (cur == 'Z') cur = 'A';
+			else cur++;
+		}
+		left++;
+		if (left > right) break;
+	}
+	for (int i = 0; i < M; i++) {
+		for (int j = 0; j < N; j++) {
+			cout << vc[i][j] << " ";
+		}
+		cout << endl;
+	}
+	system("pause");
+	return 0;
+}
