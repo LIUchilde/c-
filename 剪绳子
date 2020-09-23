@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int cutRope(int number) {
+        if(number < 2){
+            return 0;
+        }
+        if(number ==2){
+            return 1;
+        }
+        if(number == 3){
+            return 2;
+        }
+        int* prodects = new int[number+1];
+        int max = 0;
+        prodects[0] = 0;
+        prodects[1] = 1;
+        prodects[2] = 2;
+        prodects[3] = 3;
+        for(int i = 4;i<=number;i++){
+            max = 0;
+            for(int j = 1;j<=i/2;j++){
+                int product = prodects[j]*prodects[i-j];
+                if(max < product){
+                    max = product;
+                }
+                prodects[i] = max;
+            }
+        }
+        max = prodects[number];
+        delete[]prodects;
+        return max;
+    }
+};
