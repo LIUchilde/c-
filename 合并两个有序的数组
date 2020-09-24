@@ -1,0 +1,25 @@
+//给出两个有序的整数数组 和 ，请将数组 合并到数组 中，变成一个有序的数组
+//注意：
+//可以假设 数组有足够的空间存放 数组的元素， 和 中初始的元素数目分别为 和 
+
+class Solution {
+public:
+    void merge(int A[], int m, int B[], int n) {
+        int pos=m+n;//总数
+        --m,--n;
+        while(m>=0||n>=0)
+        {
+            if(m<0)
+                A[--pos]=B[n--];
+            else if(n<0)
+                break;
+            else
+            {
+                if(A[m]>B[n])
+                    A[--pos]=A[m--];
+                else
+                    A[--pos]=B[n--];
+            }
+        }   
+    }
+};
