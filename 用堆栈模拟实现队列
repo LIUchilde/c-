@@ -1,0 +1,46 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+//用堆栈(Stack)模仿队列(FIFO)
+template<class T>
+class Queue
+{
+public: 
+    //1 2 3 4 5 
+    void enqueue(const T& t)   //入队 将元素先压入stack1内
+    {
+        stack1.push(t);
+    }
+    T dequeue()   //出队
+    {
+        if (stack2.size() == 0) {
+            while (stack1.size() > 0)   //将stack1里面的所有元素 压入stack2 5 4 3 2 1
+            {
+                stack2.push(stack1.top());
+                stack1.pop();
+            }
+        }
+            if (stack2.size() > 0) {
+                T data=stack2.top();
+                stack2.pop();
+                return data;
+            }
+            else
+            {
+                cout << "无元素" << endl;
+                return NULL;
+            }
+    }
+
+        bool Empty()   //如果两个队列都为空，则模拟堆栈为空
+        {
+            if (stack1.size() == 0 && stack2.size() == 0);
+                return true;
+            else
+                return false;
+        }
+
+private:
+    stack<T> stack1;
+    stack<T> stack2;
+};
