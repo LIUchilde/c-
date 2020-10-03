@@ -1,0 +1,53 @@
+/**
+ * struct ListNode {
+ *  int val;
+ *  struct ListNode *next;
+ * };
+ */
+ 
+class Solution {
+public:
+    /**
+     *
+     * @param head ListNode类
+     * @param m int整型
+     * @param n int整型
+     * @return ListNode类
+     */
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        // write code here
+        if(m == n) return head;
+        int i = 1;
+        ListNode* phead = head;
+        ListNode* head_m = head; //第m个节点的前一个节点
+        ListNode* after = nullptr; //第n个节点的后一个节点
+        ListNode* first = nullptr; //第m个节点的前一个节点
+        while(phead){  //从第一个节点开始，直到遍历完，找出确定位置
+            if(i+1 == m){
+                first = phead;  // 第m个节点的前一个节点， 如果m=1, 则前一个节点为空
+                head_m = phead->next;  // 第m个节点
+            }
+            if(i == n){
+                after = phead->next;  //第n个节点的后一个节点
+                phead->next = nullptr;
+                break;
+            }
+            phead = phead->next;
+            i++;
+        }
+        ListNode* pre = nullptr;
+        ListNode* phead_m = head_m;
+        while(phead_m) { // 实现反转
+            ListNode* cur = phead_m->next;
+            phead_m->next = pre;
+            pre = phead_m;
+            phead_m = cur;
+        }
+        head_m->next = after; // 把上面断链的节点接上
+        if(m==1) return pre;
+        else {
+            first->next = pre;
+            return head;
+        }
+    }
+};
