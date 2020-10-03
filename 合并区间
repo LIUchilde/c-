@@ -1,0 +1,28 @@
+//给出一组区间，请合并所有重叠的区间。
+//例如，
+//给出[10,30],[20,60],[80,100],[150,180],
+//返回[10,60],[80,100],[150,180].
+
+bool compare(const Interval& in1, const Interval& in2){
+    return in1.start < in2.start;
+}
+class Solution {
+public:
+    vector<Interval> merge(vector<Interval> &intervals) {
+        vector<Interval> merged;
+        if(intervals.empty())
+            return merged;
+        sort(intervals.begin(), intervals.end(), compare);
+         
+        merged.push_back(intervals[0]);
+        for(int i = 1; i < intervals.size(); ++i){
+            if(intervals[i].start > merged.back().end)
+                merged.push_back(intervals[i]);
+            else{
+                if(merged.back().end < intervals[i].end)
+                    merged.back().end = intervals[i].end;
+            }
+        }
+        return merged;
+    }
+};
