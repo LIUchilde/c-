@@ -1,0 +1,22 @@
+//给定一个无序单链表，实现单链表的选择排序(按升序排序)。
+//输入[1,3,2,4,5]
+//输出{1,2,3,4,5}
+
+    ListNode* sortInList(ListNode* head) {
+        if(head == nullptr){
+            return NULL;
+        }
+        vector<int>vec;
+        ListNode *pCur = head;
+        while(pCur){
+            vec.push_back(pCur->val);
+            pCur = pCur->next;
+        }
+        sort(vec.begin(),vec.end());
+        pCur = head;
+        for(int i = 0;i<vec.size();i++){
+            pCur->val = vec[i];
+            pCur = pCur->next;
+        }
+        return head;
+    }
