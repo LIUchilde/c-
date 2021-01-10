@@ -1,0 +1,18 @@
+    string solve(int M, int N) {
+        string table = "0123456789ABCDEF";
+        bool flag = false;
+        string s;
+        if(M < 0){
+            M = 0-M;
+            flag = true;
+        }
+        while(M){
+            s += table[M%N];
+            M /= N;
+        }
+        if(flag){
+            s += '-';
+        }
+        reverse(s.begin(), s.end());
+        return s;
+    }
